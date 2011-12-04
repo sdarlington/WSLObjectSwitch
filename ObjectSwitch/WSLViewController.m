@@ -3,12 +3,14 @@
 //  ObjectSwitch
 //
 //  Created by Stephen Darlington on 04/12/2011.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Wandle Software Limited. All rights reserved.
 //
 
 #import "WSLViewController.h"
+#import "WSLObjectSwitch.h"
 
 @implementation WSLViewController
+@synthesize textBox;
 
 - (void)didReceiveMemoryWarning
 {
@@ -26,6 +28,7 @@
 
 - (void)viewDidUnload
 {
+    [self setTextBox:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -55,6 +58,14 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (IBAction)runTest:(id)sender {
+    [WSLObjectSwitch switchOn:self.textBox.text
+                 defaultBlock:^{ NSLog (@"Dee Fault"); }
+                        cases:@"sausage", ^{ NSLog (@"Hello, sweetie."); },
+                              @"test",    ^{ NSLog (@"A test"); }, nil
+     ];
 }
 
 @end
